@@ -3,8 +3,8 @@ import os
 import csv
 
 #Establish Path
-budget_path = os.path.join("Resources", "budget_data.csv")
-
+#budget_path = os.path.join("Resources", "budget_data.csv")
+budget_path = "C:\\Users\\Rodrigo Lozano\\Desktop\\DATABOOTCAMP\\Tarea\\Tarea3_Python\\python-challenge\\PyBank\\Resources\\budget_data.csv"
 # Total number of months in dataset - CHECK
 
 #Net total amount of "Profit/Losses" over the entire period
@@ -48,8 +48,8 @@ with open(budget_path, "r") as csvfile:
 
 
 
-total_changes = len(changes)
-changes_sum = sum(changes)
+total_changes = len(changes)-1
+changes_sum = sum(changes[1:])
 changes_average = changes_sum / total_changes
 
 print (count_of_months)
