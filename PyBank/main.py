@@ -5,17 +5,7 @@ import csv
 #Establish Path
 #budget_path = os.path.join("Resources", "budget_data.csv")
 budget_path = "C:\\Users\\Rodrigo Lozano\\Desktop\\DATABOOTCAMP\\Tarea\\Tarea3_Python\\python-challenge\\PyBank\\Resources\\budget_data.csv"
-# Total number of months in dataset - CHECK
 
-#Net total amount of "Profit/Losses" over the entire period
-
-#Average of the changes in "Profit/Losses" over the entire period
-
-#The greatest increase in profits (date and amount) over the entire period
-
-#The greatest decrease in profits (date and amount) over the entire period
-
-# Read, open and print CSV file
 count_of_months = 0
 net_total = 0
 dates = []
@@ -23,6 +13,8 @@ profits = []
 changes = []
 profit = 0
 last_profit = 0
+greatest_increase = ["", 0]
+greatest_decrease = ["", 999999999]
 
 with open(budget_path, "r") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -32,6 +24,7 @@ with open(budget_path, "r") as csvfile:
         next(csvreader)
 
     for row in csvreader:
+
         # Total number of months
         count_of_months += 1
         # Net Total Amount of P&Ls
@@ -46,12 +39,29 @@ with open(budget_path, "r") as csvfile:
         changes.append(change_in_profit)
         last_profit = profit
 
+        if change_in_profit > greatest_increase[1]:
+            greatest_increase[0] = row[0]
+            greatest_increase[1] = change_in_profit
+
+        if change_in_profit < greatest_decrease[1]:
+            greatest_decrease[0] = row[0]
+            greatest_decrease[1] = change_in_profit
 
 
 total_changes = len(changes)-1
 changes_sum = sum(changes[1:])
 changes_average = changes_sum / total_changes
 
-print (count_of_months)
-print (net_total)
-print(changes_average)
+output = (
+    f"Financial Analysis\n"
+    f"------------------------\n"
+    f"Total Months: {count_of_months}\n"
+    f"Total: {net_total}\n"
+    f"Average Change: ${changes_average:.2f}\n"
+    f"Greatest Increase in Profits: {greatest_increase}\n"
+    f"Greatest Decrease in Profits: {greatest_decrease}\n"
+)
+output_path = "C:\\Users\\Rodrigo Lozano\\Desktop\\DATABOOTCAMP\\Tarea\\Tarea3_Python\\python-challenge\\PyBank\\Analysis\\TEST_OUTPUT.CSV"
+with open(output_path, "w") as text_file:
+    text_file.write(output)
+print(output)
