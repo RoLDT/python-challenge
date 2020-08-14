@@ -3,8 +3,7 @@ import os
 import csv
 
 #Establish Path
-#budget_path = os.path.join("Resources", "budget_data.csv")
-budget_path = "C:\\Users\\Rodrigo Lozano\\Desktop\\DATABOOTCAMP\\Tarea\\Tarea3_Python\\python-challenge\\PyBank\\Resources\\budget_data.csv"
+budget_path = os.path.join("Resources", "budget_data.csv")
 
 count_of_months = 0
 net_total = 0
@@ -39,6 +38,7 @@ with open(budget_path, "r") as csvfile:
         changes.append(change_in_profit)
         last_profit = profit
 
+        #Greatest Increase and Decrease
         if change_in_profit > greatest_increase[1]:
             greatest_increase[0] = row[0]
             greatest_increase[1] = change_in_profit
@@ -61,7 +61,7 @@ output = (
     f"Greatest Increase in Profits: {greatest_increase}\n"
     f"Greatest Decrease in Profits: {greatest_decrease}\n"
 )
-output_path = "C:\\Users\\Rodrigo Lozano\\Desktop\\DATABOOTCAMP\\Tarea\\Tarea3_Python\\python-challenge\\PyBank\\Analysis\\TEST_OUTPUT.CSV"
+output_path = os.path.join("Analysis", "Budget.csv")
 with open(output_path, "w") as text_file:
     text_file.write(output)
 print(output)
